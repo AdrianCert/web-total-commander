@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'totalcmd.apps.TotalcmdConfig'
 ]
 
 MIDDLEWARE = [
@@ -51,11 +52,13 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'web.urls'
 
+TEMPLATE_DIR = Path(BASE_DIR).joinpath('templates')
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
+        'DIRS': [TEMPLATE_DIR],
+        'APP_DIRS': False,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
