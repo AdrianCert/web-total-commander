@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,45 +9,601 @@
     <title>{{title}}</title>
     <link rel='stylesheet' href="{% static 'css/totalcmd.css' %}" type='text/css' />
 </head>
+
 <body>
-    <div class="work">
-        <div class="side" id="tcmd_left">
-            <div class="file-container">
-                <div class="file-item" data-type="dir" data-id="1234"><span class="file-name">File example</span>...</div>
-                <div class="file-item" data-type="dir" data-id="1234"><span class="file-name">File example</span>...</div>
-                <div class="file-item" data-type="dir" data-id="1234"><span class="file-name">File example</span>...</div>
-                <div class="file-item" data-type="dir" data-id="1234"><span class="file-name">File example</span>...</div>
-                <div class="file-item" data-type="dir" data-id="1234"><span class="file-name">File example</span>...</div>
-                <div class="file-item" data-type="dir" data-id="1234"><span class="file-name">File example</span>...</div>
-                <div class="file-item" data-type="dir" data-id="1234"><span class="file-name">File example</span>...</div>
-                <div class="file-item" data-type="dir" data-id="1234"><span class="file-name">File example</span>...</div>
-                <div class="file-item" data-type="dir" data-id="1234"><span class="file-name">File example</span>...</div>
-                <div class="file-item" data-type="dir" data-id="1234"><span class="file-name">File example</span>...</div>
-                <div class="file-item" data-type="dir" data-id="1234"><span class="file-name">File example</span>...</div>
-                <div class="file-item" data-type="dir" data-id="1234"><span class="file-name">File example</span>...</div>
-                <div class="file-item" data-type="dir" data-id="1234"><span class="file-name">File example</span>...</div>
-                <div class="file-item" data-type="dir" data-id="1234"><span class="file-name">File example</span>...</div>
+    <section class="work">
+        <div class="side">
+            <div class="path">
+                <span class="path-node">D</span>
+                <span class="path-node">Dev</span>
+                <span class="path-node">Python</span>
+                <span class="path-node">Project</span>
+                <span class="path-node">Web-Server</span>
             </div>
+            <table>
+                <thead>
+                    <tr class="file-item">
+                        <td></td>
+                        <td>Filename</td>
+                        <td>Owner</td>
+                        <td>Size</td>
+                        <td>Date Modified</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-        <div class="side" id="tcmd_right">
-            <div class="file-container">
-                <div class="file-item" data-type="dir" data-id="1234"><span class="file-name">File example</span>...</div>
-                <div class="file-item" data-type="dir" data-id="1234"><span class="file-name">File example</span>...</div>
-                <div class="file-item" data-type="dir" data-id="1234"><span class="file-name">File example</span>...</div>
-                <div class="file-item" data-type="dir" data-id="1234"><span class="file-name">File example</span>...</div>
-                <div class="file-item" data-type="dir" data-id="1234"><span class="file-name">File example</span>...</div>
-                <div class="file-item" data-type="dir" data-id="1234"><span class="file-name">File example</span>...</div>
-                <div class="file-item" data-type="dir" data-id="1234"><span class="file-name">File example</span>...</div>
-                <div class="file-item" data-type="dir" data-id="1234"><span class="file-name">File example</span>...</div>
-                <div class="file-item" data-type="dir" data-id="1234"><span class="file-name">File example</span>...</div>
-                <div class="file-item" data-type="dir" data-id="1234"><span class="file-name">File example</span>...</div>
-                <div class="file-item" data-type="dir" data-id="1234"><span class="file-name">File example</span>...</div>
-                <div class="file-item" data-type="dir" data-id="1234"><span class="file-name">File example</span>...</div>
-                <div class="file-item" data-type="dir" data-id="1234"><span class="file-name">File example</span>...</div>
-                <div class="file-item" data-type="dir" data-id="1234"><span class="file-name">File example</span>...</div>
+
+        <div class="side">
+            <div class="path">
+                <span class="path-node">D</span>
+                <span class="path-node">Dev</span>
+                <span class="path-node">Python</span>
+                <span class="path-node">Project</span>
+                <span class="path-node">Web-Server</span>
             </div>
+            <table>
+                <thead>
+                    <tr class="file-item">
+                        <td></td>
+                        <td>Filename</td>
+                        <td>Owner</td>
+                        <td>Size</td>
+                        <td>Date Modified</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                    <tr class="file-item">
+                        <td><img src="{% static 'png/folder.png' %}" alt="" width="60%"></td>
+                        <td>Homeworks to do</td>
+                        <td>Adrian Panaintescu</td>
+                        <td>1.2 MB</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                        <td>12 Dec 2021</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-    </div>
+    </section>
     <script type="text/javascript" src="{% static 'packages/sortable/1.14.0/Sortable.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/totalcmd.js' %}"></script>
 </body>
