@@ -61,7 +61,10 @@ function displayPathParts(dnode, parts) {
     parts.forEach( p => {
         let el = document.createElement('span');
         el.className = "path-node";
-        el.innerHTML = p;
+        el.innerHTML = p.name;
+        el.addEventListener('click', () => {
+            displayListPanel(dnode.parentElement, p.id, false);
+        });
         dnode.appendChild(el);
     })
 }
@@ -129,7 +132,7 @@ function displayListPanel(panel, id, reload_atribues = true,reload_path = true,)
             tbody.appendChild(first_element);
             c = c.content;
             if (reload_path) {
-                displayPathParts(panel.querySelector(".path"), c.path);
+                displayPathParts(panel.querySelector(".path"), c.parts);
                 tbody.innerHTML = "";
                 let p_dict = {};
                 Object.keys(c.files[0]).forEach( i => {
@@ -153,8 +156,6 @@ function displayListPanel(panel, id, reload_atribues = true,reload_path = true,)
         } else {
             // error handleing
         }
-        console.log(c);
-        console.log(panel);
     })
 }
 

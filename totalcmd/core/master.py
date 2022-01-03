@@ -1,6 +1,7 @@
 """This module deals with the management of actions that come as requests"""
 from web.settings import PATH_CODING
 from .list import list_dir
+from .list import list_parts
 from .common import root_path
 from .sec import decode_path
 from .sec import encode_path
@@ -61,7 +62,7 @@ def process_list(dic):
         atrs = dic.get('atrs', None)
         atrs = atrs.split(',') if atrs else []
         return {
-            'path': path.parts,
+            'parts': list_parts(path),
             'parent': encode_path(path.parent, procedure=PATH_CODING),
             'files': list_dir(path, atrs)
         }

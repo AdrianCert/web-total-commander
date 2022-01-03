@@ -118,7 +118,27 @@ def list_dir(path, atrs=None):
     return dirs_pack + files_pack
 
 
+def list_parts(path):
+    """Return all parents packed in a dictionary with id and name
+
+    Args:
+        path (str/Path): The path from which the extraction is performed
+
+    Returns:
+        list[dict]: Returns a list of objects for each part of file.
+    """
+    list_parts.f = lambda x: {
+        'id' : encode_path(x, procedure=PATH_CODING),
+        'name': x.name or x.drive
+    }
+    path = Path(path).absolute()
+    parts = [list_parts.f(i) for i in path.parents]
+    parts.reverse()
+    parts.append(list_parts.f(path))
+    return parts
+
 if __name__ == "__main__":
     # demonstating work
     import json
     print(json.dumps(list_dir(Path("."), list(ATRS_MAP.keys())), indent=2))
+    list_parts('.')
