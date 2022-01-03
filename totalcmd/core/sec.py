@@ -1,3 +1,4 @@
+"""This module handles security within the application"""
 from pathlib import Path
 from os import stat
 from cryptography.fernet import Fernet
@@ -42,7 +43,7 @@ def decode_path(path, key=None, procedure=None):
         Path : Decoded path ready to use
     """
     decode_path.procedures = {
-        "fernet": lambda x, k: Fernet(k).decrypt(x.encode()).decode(),
+        "fernet": lambda x, k: Path(Fernet(k).decrypt(x.encode()).decode()),
         "direct": lambda x, k: Path(x)
     }
     if key is None:
@@ -64,9 +65,11 @@ def windows_lookup_sd(path):
     Returns:
         tuple: return tuple with owner username, group and uid
     """
-    import win32security as wins
-    sd = wins.GetFileSecurity(path, wins.OWNER_SECURITY_INFORMATION)
-    owner_sid = sd.GetSecurityDescriptorOwner()
+    # pylint: disable=import-outside-toplevel
+    # pylint: disable=c-extension-no-member
+    import win32security as wins  # pylint: disable=import-error
+    scd = wins.GetFileSecurity(path, wins.OWNER_SECURITY_INFORMATION)
+    owner_sid = scd.GetSecurityDescriptorOwner()
     return wins.LookupAccountSid(None, owner_sid)
 
 
@@ -79,8 +82,9 @@ def unix_lookup_sd(path):
     Returns:
         tuple: return tuple with owner username, group and uid
     """
-    from pwd import getpwuid
-    from grp import getgrgid
+    # pylint: disable=import-outside-toplevel
+    from pwd import getpwuid  # pylint: disable=import-error
+    from grp import getgrgid  # pylint: disable=import-error
     path_stat = stat(path)
     return (
         getpwuid(path_stat.st_uid).pw_name,

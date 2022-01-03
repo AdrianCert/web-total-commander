@@ -1,8 +1,10 @@
-from os import walk, path
+"""This module is dedicated to listing and displaying files"""
+from os import walk, path as os_path
 from pathlib import Path
-from sec import encode_path, decode_path
-from sec import lookup_sd_path
 from datetime import datetime
+from web.settings import PATH_CODING
+from .sec import encode_path
+from .sec import lookup_sd_path
 
 TIME_FORMAT = '%Y-%m-%d %H:%M'
 
@@ -12,8 +14,8 @@ IS_FILE_MAP = {
 }
 
 ATRS_MAP = {
-    'id': lambda x: encode_path(x, procedure="fernet"),
-    'name': lambda x: path.basename(x),
+    'id': lambda x: encode_path(x, procedure=PATH_CODING),
+    'name': os_path.basename,
     'owner': lambda x: lookup_sd_path(str(x))[0],
     'perm': lambda x: permissions_string(x.stat()),
     'size': lambda x: x.stat().st_size,
@@ -34,7 +36,7 @@ NR_MOD_MAP = {
 }
 
 
-def permissions_string(st):
+def permissions_string(stat):
     """Convert st_mode permision numer intro rwx unix like string
 
     Args:
@@ -43,7 +45,7 @@ def permissions_string(st):
     Returns:
         str: rwx unix line string
     """
-    permission_string = str(oct(st.st_mode)[-3:])
+    permission_string = str(oct(stat.st_mode)[-3:])
     return ''.join(NR_MOD_MAP.get(x, x) for x in permission_string)
 
 
@@ -71,8 +73,11 @@ def path_atr(path, atr):
     Returns:
         str: value of atributes which is extracted
     """
-    f_atribute = ATRS_MAP.get(atr, lambda x: "")
-    return f_atribute(path)
+    try:
+        f_atribute = ATRS_MAP.get(atr, lambda x: "")
+        return f_atribute(path)
+    except Exception:  # pylint: disable=broad-except
+        return ""
 
 
 def dict_pack(path, ptype=None, atrs_list=None):
@@ -83,8 +88,8 @@ def dict_pack(path, ptype=None, atrs_list=None):
         ptype (str, optional): Value of type for the path. Defaults to None.
         atrs_list (list[str], optional): List of attributes to be aggregated.
     """
-    def get_type(t):
-        return ('type', t or IS_FILE_MAP.get(path.is_file()))
+    def get_type(_type):
+        return ('type', _type or IS_FILE_MAP.get(path.is_file()))
 
     if not atrs_list:
         atrs_list = []
@@ -107,7 +112,7 @@ def list_dir(path, atrs=None):
         Objects that are a dictionary that contains all the required attributes
     """
     path = Path(path).absolute()
-    curr, dirs, files = next(walk(path))
+    curr, dirs, files = next(walk(path))  # pylint: disable=unused-variable
     dirs_pack = [dict_pack(path / i, 'dir', atrs) for i in dirs]
     files_pack = [dict_pack(path / i, 'file', atrs) for i in files]
     return dirs_pack + files_pack
