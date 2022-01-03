@@ -1,4 +1,5 @@
 STV_LIST = 'list';
+STV_OPEN = 'open';
 API_ACTION = '/totalcmd/action'
 DOM_LPANEL = document.getElementById('l_side');
 DOM_RPANEL = document.getElementById('r_side');
@@ -112,6 +113,11 @@ function createFileRow(data, panel) {
             displayListPanel(panel, data.id, false);
         });
     }
+    if ( data.type === 'file') {
+        name_container.addEventListener('click', () => {
+            openFileNode(data.id);
+        });
+    }
 
     let used_list = ['id' , 'name', 'type'];
     Object.keys(data).filter( i => !used_list.includes(i)).forEach( i => {
@@ -157,6 +163,21 @@ function displayListPanel(panel, id, reload_atribues = true,reload_path = true,)
             // error handleing
         }
     })
+}
+
+function openFileNode(pathid) {
+    let form = new FormData();
+    form.append('action', STV_OPEN);
+    form.append('node', pathid);
+    return fetch(API_ACTION, {
+        method: 'POST',
+        headers: {
+            "X-CSRFToken": getCookie('csrftoken')
+        },
+        body: form
+    }).then(r => r.json()).then( r => {
+        // to something if error or succes
+    });
 }
 
 async function getList(pathid = null) {

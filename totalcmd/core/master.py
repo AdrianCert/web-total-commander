@@ -5,6 +5,7 @@ from .list import list_parts
 from .common import root_path
 from .sec import decode_path
 from .sec import encode_path
+from .open import open_with_default_program as f_open
 
 
 class ProcessError(Exception):
@@ -71,6 +72,27 @@ def process_list(dic):
                            "Action can not be done") from None
 
 
+def process_open(dic):
+    """Process the case if a open is desired
+
+    Args:
+        dic (dict): Dictionary with the necessary data to make the request
+
+    Raises:
+        ProcessError: The exception is made when an error
+        occurred during processing
+
+    Returns:
+        dict: Dictionary with relevant data
+    """
+    try:
+        path = decode_path(dic.get('node'), procedure=PATH_CODING)
+        f_open(path)
+        return ''
+    except Exception:
+        raise ProcessError(502, "error open",
+                           "Action can not be done") from None
+
 def process(dic):
     """Manage action requests
 
@@ -89,6 +111,7 @@ def process(dic):
     """
     process.action = {
         'list': process_list,
+        'open': process_open,
         'invalid': process_invalid
     }
     f_process = process.action.get(dic.get('action', 'invalid'),
