@@ -61,7 +61,7 @@ def process_list(dic):
         atrs = dic.get('atrs', None)
         atrs = atrs.split(',') if atrs else []
         return {
-            'path': str(path),
+            'path': path.parts,
             'parent': encode_path(path.parent, procedure=PATH_CODING),
             'files': list_dir(path, atrs)
         }

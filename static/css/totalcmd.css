@@ -39,7 +39,7 @@ body {
 }
 
 .path>span:nth-child(2)::before {
-    content: ":";
+    content: "";
 }
 
 .path>span::before {
