@@ -18,7 +18,7 @@ ATRS_MAP = {
     'name': os_path.basename,
     'owner': lambda x: lookup_sd_path(str(x))[0],
     'perm': lambda x: permissions_string(x.stat()),
-    'size': lambda x: x.stat().st_size,
+    'size': lambda x: x.stat().st_size if x.is_file() else "dir",
     'atime': lambda x: x.stat().st_atime,
     'mtime': lambda x: x.stat().st_mtime,
     'ctime': lambda x: x.stat().st_ctime,
