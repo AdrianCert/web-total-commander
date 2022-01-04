@@ -5,6 +5,7 @@ STV_MKDIR = 'mkdir';
 STV_MKFILE = 'mkfile';
 STV_REMOVE = 'remove';
 STV_MOVE = 'move';
+STV_COPY = 'copy';
 API_ACTION = '/totalcmd/action'
 DOM_LPANEL = document.getElementById('l_side');
 DOM_RPANEL = document.getElementById('r_side');
@@ -259,7 +260,11 @@ function displayListPanel(panel, id, reload_atribues = true,reload_path = true,)
                                 type: 'seperator'
                             },
                             {
-                                label: 'Copy', onClick: () => {}, shortcut: 'Ctrl+A'
+                                label: 'Copy',
+                                onClick: () => {
+                                    copyOtherSide(i.id, tr);
+                                },
+                                shortcut: 'Ctrl+A'
                             },
                             {
                                 label: 'Move',
@@ -294,6 +299,30 @@ function displayListPanel(panel, id, reload_atribues = true,reload_path = true,)
             // error handleing
         }
     })
+}
+
+async function copyOtherSide(pathid, provider) {
+    let p = provider;
+    while (p && ![...p.classList].includes('side')) {
+        p = p.parentNode;
+    }
+    let aside = document.getElementById(p.id === 'r_side' ? 'l_side': 'r_side');
+    let form = new FormData();
+    form.append('action', STV_COPY);
+    form.append('node', pathid);
+    form.append('target', aside.dataset.cwp);
+    return await fetch(API_ACTION, {
+        method: 'POST',
+        headers: {
+            "X-CSRFToken": getCookie('csrftoken')
+        },
+        body: form
+    }).then(r => r.json()).then(r => {
+        if(r.ok) {
+            displayListPanel(p, p.dataset.cwp, false);
+            displayListPanel(aside, aside.dataset.cwp, false);
+        }
+    });
 }
 
 async function moveOtherSide(pathid, provider) {
