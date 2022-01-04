@@ -1,11 +1,13 @@
 """This module deals with the management of actions that come as requests"""
 from web.settings import PATH_CODING
 from .list import list_dir
+from .list import dict_pack
 from .list import list_parts
 from .common import root_path
 from .sec import decode_path
 from .sec import encode_path
 from .open import open_with_default_program as f_open
+from .rename import rename as f_rename
 
 
 class ProcessError(Exception):
@@ -64,7 +66,7 @@ def process_list(dic):
         atrs = atrs.split(',') if atrs else []
         return {
             'parts': list_parts(path),
-            'parent': encode_path(path.parent, procedure=PATH_CODING),
+            'parent': dict_pack(path.parent, 'dir', atrs),
             'files': list_dir(path, atrs)
         }
     except Exception:
@@ -93,6 +95,27 @@ def process_open(dic):
         raise ProcessError(502, "error open",
                            "Action can not be done") from None
 
+
+def process_rename(dic):
+    """Process the case if a rename is desired
+
+    Args:
+        dic (dict): Dictionary with the necessary data to make the request
+
+    Raises:
+        ProcessError: The exception is made when an error
+        occurred during processing
+
+    Returns:
+        dict: Dictionary with relevant data
+    """
+    try:
+        path = decode_path(dic.get('node'), procedure=PATH_CODING)
+        return f_rename(path, dic.get('value'))
+    except Exception:
+        raise ProcessError(502, "error rename",
+                           "Action can not be done") from None
+
 def process(dic):
     """Manage action requests
 
@@ -112,6 +135,7 @@ def process(dic):
     process.action = {
         'list': process_list,
         'open': process_open,
+        'rename': process_rename,
         'invalid': process_invalid
     }
     f_process = process.action.get(dic.get('action', 'invalid'),

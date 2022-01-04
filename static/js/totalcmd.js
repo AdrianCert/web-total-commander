@@ -1,5 +1,6 @@
 STV_LIST = 'list';
 STV_OPEN = 'open';
+STV_RENAME = 'rename';
 API_ACTION = '/totalcmd/action'
 DOM_LPANEL = document.getElementById('l_side');
 DOM_RPANEL = document.getElementById('r_side');
@@ -94,6 +95,7 @@ function displayFilesHeader(header, sample) {
 function createFileRow(data, panel) {
     let container = document.createElement('tr');
     container.className = 'file-item';
+    container.dataset.type = data.type
 
     // show img col
     let img_container = document.createElement('td');
@@ -107,11 +109,12 @@ function createFileRow(data, panel) {
 
     let name_container = document.createElement('td');
     container.appendChild(name_container);
+    name_container.dataset.role = 'name';
     name_container.innerHTML = data.name;
     if ( data.type === 'dir') {
         name_container.addEventListener('click', () => {
             displayListPanel(panel, data.id, false);
-        });
+        }, false);
     }
     if ( data.type === 'file') {
         name_container.addEventListener('click', () => {
@@ -128,6 +131,63 @@ function createFileRow(data, panel) {
     return container;
 }
 
+function openRenameInput(dnode, pathid) {
+    let old_container = dnode.querySelector('td[data-role=name]');
+    let container = document.createElement('td');
+    let input = document.createElement('input');
+    container.appendChild(input);
+    input.value = old_container.innerHTML
+    input.style.width = '80%';
+
+    old_container.after(container);
+    old_container.remove();
+
+    let btn = document.createElement('button');
+    container.appendChild(btn);
+    btn.textContent = "ok";
+    btn.addEventListener('click', () => {
+        renameFileNode(pathid, input.value).then( r => {
+            // to something if error or succes
+            let p = dnode;
+            while (p && ![...p.classList].includes('side')) {
+                p = p.parentNode;
+            }
+            if(r.ok) {
+                container.after(old_container);
+                old_container.innerHTML = input.value;
+                container.remove();
+                if ( r.content.type === 'dir') {
+                    old_container.addEventListener('click', () => {
+                        displayListPanel(p, r.content.id, false);
+                    }, false);
+                }
+                if ( r.content.type === 'file') {
+                    old_container.addEventListener('click', () => {
+                        openFileNode(r.content.id);
+                    });
+                }
+            }
+            else {
+                container.after(old_container);
+                container.remove();
+                // do error showing
+                
+                old_container.innerHTML = input.value;
+                if ( dnode.dataset.type === 'dir') {
+                    old_container.addEventListener('click', () => {
+                        displayListPanel(p, pathid, false);
+                    }, false);
+                }
+                if ( dnode.dataset.type === 'file') {
+                    old_container.addEventListener('click', () => {
+                        openFileNode(pathid);
+                    });
+                }
+            }
+        });
+    });
+}
+
 function displayListPanel(panel, id, reload_atribues = true,reload_path = true,) {
     getList(id).then(c => {
         if(c.ok) {
@@ -141,11 +201,12 @@ function displayListPanel(panel, id, reload_atribues = true,reload_path = true,)
                 displayPathParts(panel.querySelector(".path"), c.parts);
                 tbody.innerHTML = "";
                 let p_dict = {};
-                Object.keys(c.files[0]).forEach( i => {
+                console.log(c.parent)
+                Object.keys(c.parent).forEach( i => {
                     p_dict[i] = '';
                 });
                 p_dict.type = 'dir';
-                p_dict.id = c.parent;
+                p_dict.id = c.parent.id;
                 p_dict.name = "..";
 
                 let tr = createFileRow(p_dict, panel);
@@ -156,13 +217,56 @@ function displayListPanel(panel, id, reload_atribues = true,reload_path = true,)
             }
             
             c.files.forEach(i => {
-                tbody.appendChild(createFileRow(i, panel));
+                let tr = createFileRow(i, panel);
+                tbody.appendChild(tr);
+                
+                tr.addEventListener('contextmenu', e => {
+                    e.preventDefault();
+                    
+                    new Contextual({
+                        isSticky: false,
+                        items: [
+                            {label: 'Open', onClick: () => {
+                                if ( i.type === 'dir') {
+                                    displayListPanel(panel, i.id, false);
+                                }
+                                if ( data.type === 'file') {
+                                    openFileNode(i.id);
+                                }
+                            }, shortcut: 'Ctrl+O'},
+                            {label: 'Rename', onClick: () => {
+                                openRenameInput(tr, i.id);
+                            }, shortcut: 'Ctrl+B'},
+                            {type: 'seperator'},
+                            {label: 'Copy', onClick: () => {}, shortcut: 'Ctrl+A'},
+                            {label: 'Move', onClick: () => {}, shortcut: 'Ctrl+A'},
+                            {type: 'hovermenu', label: 'new', items: [
+                                {label: 'Folder', onClick: () => {}},
+                                {label: 'File', onClick: () => {}},
+                            ]},
+                        ]
+                    });
+                })
             });
 
         } else {
             // error handleing
         }
     })
+}
+
+async function renameFileNode(pathid, name) {
+    let form = new FormData();
+    form.append('action', STV_RENAME);
+    form.append('node', pathid);
+    form.append('value', name);
+    return await fetch(API_ACTION, {
+        method: 'POST',
+        headers: {
+            "X-CSRFToken": getCookie('csrftoken')
+        },
+        body: form
+    }).then(r => r.json());
 }
 
 function openFileNode(pathid) {
