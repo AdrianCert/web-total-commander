@@ -11,6 +11,7 @@ from .rename import rename as f_rename
 from .create import create_dir as f_mkdir
 from .create import create_file as f_mkfile
 from .remove import rm_tree as f_remove
+from .move import move as f_move
 
 
 class ProcessError(Exception):
@@ -70,6 +71,7 @@ def process_list(dic):
         return {
             'parts': list_parts(path),
             'parent': dict_pack(path.parent, 'dir', atrs),
+            'id': encode_path(path, procedure=PATH_CODING),
             'files': list_dir(path, atrs)
         }
     except Exception:
@@ -183,6 +185,28 @@ def process_remove(dic):
                            "Action can not be done") from None
 
 
+def process_move(dic):
+    """Process the case if a move action is desired
+
+    Args:
+        dic (dict): Dictionary with the necessary data to make the request
+
+    Raises:
+        ProcessError: The exception is made when an error
+        occurred during processing
+
+    Returns:
+        dict: Dictionary with relevant data
+    """
+    try:
+        path = decode_path(dic.get('node'), procedure=PATH_CODING)
+        tpath = decode_path(dic.get('target'), procedure=PATH_CODING)
+        return f_move(path, tpath)
+    except Exception:
+        raise ProcessError(504, "error move",
+                           "Action can not be done") from None
+
+
 def process(dic):
     """Manage action requests
 
@@ -206,6 +230,7 @@ def process(dic):
         'mkdir': process_mkdir,
         'mkfile': process_mkfile,
         'remove': process_remove,
+        'move': process_move,
         'invalid': process_invalid
     }
     f_process = process.action.get(dic.get('action', 'invalid'),

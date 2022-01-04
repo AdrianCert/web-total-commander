@@ -4,6 +4,7 @@ STV_RENAME = 'rename';
 STV_MKDIR = 'mkdir';
 STV_MKFILE = 'mkfile';
 STV_REMOVE = 'remove';
+STV_MOVE = 'move';
 API_ACTION = '/totalcmd/action'
 DOM_LPANEL = document.getElementById('l_side');
 DOM_RPANEL = document.getElementById('r_side');
@@ -213,7 +214,7 @@ function displayListPanel(panel, id, reload_atribues = true,reload_path = true,)
 
                 let tr = createFileRow(p_dict, panel);
                 tbody.appendChild(tr);
-                panel.dataset.cwp = c.parent.id;
+                panel.dataset.cwp = c.id;
             }
             if ( reload_atribues) {
                 displayFilesHeader(table.querySelector('thead'), c.files[0]);
@@ -261,7 +262,11 @@ function displayListPanel(panel, id, reload_atribues = true,reload_path = true,)
                                 label: 'Copy', onClick: () => {}, shortcut: 'Ctrl+A'
                             },
                             {
-                                label: 'Move', onClick: () => {}, shortcut: 'Ctrl+A'
+                                label: 'Move',
+                                onClick: () => {
+                                    moveOtherSide(i.id, tr);
+                                },
+                                shortcut: 'Ctrl+A'
                             },
                             {
                                 type: 'hovermenu',
@@ -289,6 +294,30 @@ function displayListPanel(panel, id, reload_atribues = true,reload_path = true,)
             // error handleing
         }
     })
+}
+
+async function moveOtherSide(pathid, provider) {
+    let p = provider;
+    while (p && ![...p.classList].includes('side')) {
+        p = p.parentNode;
+    }
+    let aside = document.getElementById(p.id === 'r_side' ? 'l_side': 'r_side');
+    let form = new FormData();
+    form.append('action', STV_MOVE);
+    form.append('node', pathid);
+    form.append('target', aside.dataset.cwp);
+    return await fetch(API_ACTION, {
+        method: 'POST',
+        headers: {
+            "X-CSRFToken": getCookie('csrftoken')
+        },
+        body: form
+    }).then(r => r.json()).then(r => {
+        if(r.ok) {
+            displayListPanel(p, p.dataset.cwp, false);
+            displayListPanel(aside, aside.dataset.cwp, false);
+        }
+    });
 }
 
 async function removePath(pathid, provider) {
