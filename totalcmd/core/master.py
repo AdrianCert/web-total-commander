@@ -10,6 +10,7 @@ from .open import open_with_default_program as f_open
 from .rename import rename as f_rename
 from .create import create_dir as f_mkdir
 from .create import create_file as f_mkfile
+from .remove import rm_tree as f_remove
 
 
 class ProcessError(Exception):
@@ -157,6 +158,27 @@ def process_mkfile(dic):
         path = decode_path(dic.get('node'), procedure=PATH_CODING)
         return f_mkfile(path, dic.get('value'))
     except Exception:
+        raise ProcessError(503, "error on make file",
+                           "Action can not be done") from None
+
+
+def process_remove(dic):
+    """Process the case if a remove file/dir is desired
+
+    Args:
+        dic (dict): Dictionary with the necessary data to make the request
+
+    Raises:
+        ProcessError: The exception is made when an error
+        occurred during processing
+
+    Returns:
+        dict: Dictionary with relevant data
+    """
+    try:
+        path = decode_path(dic.get('node'), procedure=PATH_CODING)
+        return f_remove(path)
+    except Exception:
         raise ProcessError(504, "error rm_tree",
                            "Action can not be done") from None
 
@@ -183,6 +205,7 @@ def process(dic):
         'rename': process_rename,
         'mkdir': process_mkdir,
         'mkfile': process_mkfile,
+        'remove': process_remove,
         'invalid': process_invalid
     }
     f_process = process.action.get(dic.get('action', 'invalid'),

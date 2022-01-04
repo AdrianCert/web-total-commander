@@ -3,6 +3,7 @@ STV_OPEN = 'open';
 STV_RENAME = 'rename';
 STV_MKDIR = 'mkdir';
 STV_MKFILE = 'mkfile';
+STV_REMOVE = 'remove';
 API_ACTION = '/totalcmd/action'
 DOM_LPANEL = document.getElementById('l_side');
 DOM_RPANEL = document.getElementById('r_side');
@@ -228,28 +229,57 @@ function displayListPanel(panel, id, reload_atribues = true,reload_path = true,)
                     new Contextual({
                         isSticky: false,
                         items: [
-                            {label: 'Open', onClick: () => {
-                                if ( i.type === 'dir') {
-                                    displayListPanel(panel, i.id, false);
-                                }
-                                if ( data.type === 'file') {
-                                    openFileNode(i.id);
-                                }
-                            }, shortcut: 'Ctrl+O'},
-                            {label: 'Rename', onClick: () => {
-                                openRenameInput(tr, i.id);
-                            }, shortcut: 'Ctrl+B'},
-                            {type: 'seperator'},
-                            {label: 'Copy', onClick: () => {}, shortcut: 'Ctrl+A'},
-                            {label: 'Move', onClick: () => {}, shortcut: 'Ctrl+A'},
-                            {type: 'hovermenu', label: 'new', items: [
-                                {label: 'Folder', onClick: () => {
-                                    makeNewFolder(tr);
-                                }},
-                                {label: 'File', onClick: () => {
-                                    makeNewFile(tr);
-                                }},
-                            ]},
+                            {
+                                label: 'Open', 
+                                onClick: () => {
+                                    if ( i.type === 'dir') {
+                                        displayListPanel(panel, i.id, false);
+                                    }
+                                    if ( i.type === 'file') {
+                                        openFileNode(i.id);
+                                    }
+                                }, 
+                                shortcut: 'Ctrl+O'
+                            },
+                            {
+                                label: 'Rename',
+                                onClick: () => {
+                                    openRenameInput(tr, i.id);
+                                },
+                                shortcut: 'Ctrl+B'
+                            },
+                            { 
+                                label: 'Remove', onClick: () => {
+                                    removePath(i.id, tr);
+                                },
+                                shortcut: 'Ctrl+B'
+                            },
+                            {
+                                type: 'seperator'
+                            },
+                            {
+                                label: 'Copy', onClick: () => {}, shortcut: 'Ctrl+A'
+                            },
+                            {
+                                label: 'Move', onClick: () => {}, shortcut: 'Ctrl+A'
+                            },
+                            {
+                                type: 'hovermenu',
+                                label: 'new', items: [
+                                    {
+                                        label: 'Folder', 
+                                        onClick: () => {
+                                            makeNewFolder(tr);
+                                        }
+                                    },
+                                    {
+                                        label: 'File',
+                                        onClick: () => {
+                                            makeNewFile(tr);
+                                        }
+                                    },
+                                ]
+                            },
                         ]
                     });
                 })
@@ -259,6 +289,27 @@ function displayListPanel(panel, id, reload_atribues = true,reload_path = true,)
             // error handleing
         }
     })
+}
+
+async function removePath(pathid, provider) {
+    let form = new FormData();
+    form.append('action', STV_REMOVE);
+    form.append('node', pathid);
+    return await fetch(API_ACTION, {
+        method: 'POST',
+        headers: {
+            "X-CSRFToken": getCookie('csrftoken')
+        },
+        body: form
+    }).then(r => r.json()).then(r => {
+        if(r.ok) {
+            let p = provider;
+            while (p && ![...p.classList].includes('side')) {
+                p = p.parentNode;
+            }
+            displayListPanel(p, p.dataset.cwp, false);
+        }
+    });
 }
 
 async function makeNewFile(provider) {
