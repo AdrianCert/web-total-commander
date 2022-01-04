@@ -1,6 +1,7 @@
 STV_LIST = 'list';
 STV_OPEN = 'open';
 STV_RENAME = 'rename';
+STV_MKDIR = 'mkdir';
 API_ACTION = '/totalcmd/action'
 DOM_LPANEL = document.getElementById('l_side');
 DOM_RPANEL = document.getElementById('r_side');
@@ -201,7 +202,6 @@ function displayListPanel(panel, id, reload_atribues = true,reload_path = true,)
                 displayPathParts(panel.querySelector(".path"), c.parts);
                 tbody.innerHTML = "";
                 let p_dict = {};
-                console.log(c.parent)
                 Object.keys(c.parent).forEach( i => {
                     p_dict[i] = '';
                 });
@@ -211,6 +211,7 @@ function displayListPanel(panel, id, reload_atribues = true,reload_path = true,)
 
                 let tr = createFileRow(p_dict, panel);
                 tbody.appendChild(tr);
+                panel.dataset.cwp = c.parent.id;
             }
             if ( reload_atribues) {
                 displayFilesHeader(table.querySelector('thead'), c.files[0]);
@@ -241,7 +242,9 @@ function displayListPanel(panel, id, reload_atribues = true,reload_path = true,)
                             {label: 'Copy', onClick: () => {}, shortcut: 'Ctrl+A'},
                             {label: 'Move', onClick: () => {}, shortcut: 'Ctrl+A'},
                             {type: 'hovermenu', label: 'new', items: [
-                                {label: 'Folder', onClick: () => {}},
+                                {label: 'Folder', onClick: () => {
+                                    makeNewFolder(tr);
+                                }},
                                 {label: 'File', onClick: () => {}},
                             ]},
                         ]
@@ -253,6 +256,29 @@ function displayListPanel(panel, id, reload_atribues = true,reload_path = true,)
             // error handleing
         }
     })
+}
+
+async function makeNewFolder(provider) {
+    let p = provider;
+    while (p && ![...p.classList].includes('side')) {
+        p = p.parentNode;
+    }
+    let name = prompt("Please enter folder name", "New Folder");
+    let form = new FormData();
+    form.append('action', STV_MKDIR);
+    form.append('node', p.dataset.cwp);
+    form.append('value', name);
+    return await fetch(API_ACTION, {
+        method: 'POST',
+        headers: {
+            "X-CSRFToken": getCookie('csrftoken')
+        },
+        body: form
+    }).then(r => r.json()).then(r => {
+        if(r.ok) {
+            displayListPanel(p, p.dataset.cwp, false);
+        }
+    });
 }
 
 async function renameFileNode(pathid, name) {
