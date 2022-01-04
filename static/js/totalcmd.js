@@ -2,6 +2,7 @@ STV_LIST = 'list';
 STV_OPEN = 'open';
 STV_RENAME = 'rename';
 STV_MKDIR = 'mkdir';
+STV_MKFILE = 'mkfile';
 API_ACTION = '/totalcmd/action'
 DOM_LPANEL = document.getElementById('l_side');
 DOM_RPANEL = document.getElementById('r_side');
@@ -245,7 +246,9 @@ function displayListPanel(panel, id, reload_atribues = true,reload_path = true,)
                                 {label: 'Folder', onClick: () => {
                                     makeNewFolder(tr);
                                 }},
-                                {label: 'File', onClick: () => {}},
+                                {label: 'File', onClick: () => {
+                                    makeNewFile(tr);
+                                }},
                             ]},
                         ]
                     });
@@ -256,6 +259,29 @@ function displayListPanel(panel, id, reload_atribues = true,reload_path = true,)
             // error handleing
         }
     })
+}
+
+async function makeNewFile(provider) {
+    let p = provider;
+    while (p && ![...p.classList].includes('side')) {
+        p = p.parentNode;
+    }
+    let name = prompt("Please enter file name", "New File");
+    let form = new FormData();
+    form.append('action', STV_MKFILE);
+    form.append('node', p.dataset.cwp);
+    form.append('value', name);
+    return await fetch(API_ACTION, {
+        method: 'POST',
+        headers: {
+            "X-CSRFToken": getCookie('csrftoken')
+        },
+        body: form
+    }).then(r => r.json()).then(r => {
+        if(r.ok) {
+            displayListPanel(p, p.dataset.cwp, false);
+        }
+    });
 }
 
 async function makeNewFolder(provider) {
